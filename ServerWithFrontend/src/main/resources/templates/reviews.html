@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Submitted Feedback list</h1>
+
+<div th:if="${feedbacks.isEmpty()}">
+    <p>No feedback has been submitted yet.</p>
+</div>
+
+<div class="reviews-container" th:unless="${feedbacks.isEmpty()}">
+    <div class="review" th:each="feedback, stat : ${feedbacks}">
+        <p th:if="${feedback.name != null and feedback.name != ''}">
+            <span th:text="${feedback.name}"></span>
+            <span th:if="${feedback.email != null and feedback.email != ''}" th:text="' (' + ${feedback.email} + ')'"></span>
+        </p>
+        <p th:if="${feedback.name == null or feedback.name == '' and feedback.email != null and feedback.email != ''}" th:text="${feedback.email}"></p>
+        <p th:if="${feedback.modelUsed != null and feedback.modelUsed != ''}">used <span th:text="${feedback.modelUsed}"></span></p>
+        <p th:if="${feedback.rating != null and feedback.rating != ''}">rating: <span th:text="${feedback.rating}"></span></p>
+        <p th:if="${feedback.review != null and feedback.review != ''}">liked: <span th:text="${feedback.review}"></span></p>
+        <p th:if="${feedback.improvements != null and feedback.improvements != ''}">recommendations: <span th:text="${feedback.improvements}"></span></p>
+        <p th:if="${feedback.features != null and feedback.features != ''}">additional opportunities: <span th:text="${feedback.features}"></span></p>
+        <hr th:if="${!stat.last}">
+    </div>
+</div>
+</body>
+</html>
